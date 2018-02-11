@@ -7,9 +7,11 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import de.balticsoftware.entities.Board;
+import de.balticsoftware.entities.Card;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -133,4 +135,67 @@ public class Trello {
     }
 
 
+    /**
+     * Get a Trello board by its ID.
+     * @param id ID of the Trello board.
+     * @param jsonResponse Pass JSON response as inversion of control.
+     * @return Board object with the given trello ID.
+     */
+    public Board board(String id, String jsonResponse) throws Exception {
+        String responseString;
+        if (jsonResponse == null) {
+            responseString = executeApiCall("1/boards/" + id);
+        }
+        else {
+            responseString = jsonResponse;
+        }
+
+        logger.info("Mapping JSON response to board object ...");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        return mapper.readValue(responseString, Board.class);
+    }
+
+    /**
+     * Get a Trello board by its ID.
+     * @param id ID of the Trello board.
+     * @return Board object with the given trello ID.
+     */
+    public Board board(String id) throws Exception {
+        return board(id, null);
+    }
+
+    /**
+     * Get a list of all cards of a specific board.
+     *
+     * @param boardId The id of the board from which to get the cards.
+     * @param jsonResponse Pass JSON response as inversion of control.
+     * @return List of cards on a specific board.
+     */
+    public List<Card> cardsOnBoard(String boardId, String jsonResponse) throws Exception {
+        String responseString;
+        if (jsonResponse == null) {
+            responseString = executeApiCall("1/boards/" + boardId + "/cards");
+        }
+        else {
+            responseString = jsonResponse;
+        }
+
+        logger.info("Mapping JSON response to list of cards ...");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        return mapper.readValue(responseString, new TypeReference<List<Card>>(){});
+    }
+
+    /**
+     * Get a list of all cards of a specific board.
+     *
+     * @param boardId The id of the board from which to get the cards.
+     * @return List of cards on a specific board.
+     */
+    public List<Card> cardsOnBoard(String boardId) throws Exception {
+        return cardsOnBoard(boardId, null);
+    }
 }

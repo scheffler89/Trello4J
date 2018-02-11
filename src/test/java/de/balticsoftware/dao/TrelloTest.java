@@ -27,9 +27,9 @@ public class TrelloTest {
 
 
         /*assertEquals("API Test Board", board.getName());
-        assertEquals(null, board.getDescription());
+        assertEquals(null, board.getDesc());
         assertEquals("5a80306437896192ef3e150e", board.getId());
-        assertEquals(null, board.getOrganizationId());
+        assertEquals(null, board.getIdOrganization());
         assertEquals("https://trello.com/b/q6VTqs9o/api-test-board", board.getUrl());
         assertEquals("https://trello.com/b/q6VTqs9o", board.getShortUrl());*/
 

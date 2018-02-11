@@ -1,6 +1,5 @@
 package de.balticsoftware.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -12,15 +11,14 @@ public class Board {
 
     private String id;
     private String name;
-    private String description;
+    private String descData;
     private boolean closed;
-    private String organizationId;
+    private String idOrganization;
     private String url;
     private boolean pinned;
     private String shortUrl;
-
-    //TODO: private [Object] prefs
-    //TODO: private [Object] labelNames
+    //TODO: private Object prefs;
+    //TODO: private Object labelNames;
 
     /**
      * @return The ID of the board.
@@ -56,19 +54,19 @@ public class Board {
 
     /**
      *
-     * @return If the description includes custom emoji, this will contain the data necessary to display them.
+     * @return If the descData includes custom emoji, this will contain the data necessary to display them.
      */
-    public String getDescription() {
-        return description;
+    public String getDescData() {
+        return descData;
     }
 
     /**
      *
-     * @param description If the description of the board.
+     * @param descData If the descData of the board.
      */
     @JsonSetter("descData")
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescData(String descData) {
+        this.descData = descData;
     }
 
     /**
@@ -92,17 +90,17 @@ public class Board {
      *
      * @return MongoID of the organization to which the board belongs.
      */
-    public String getOrganizationId() {
-        return organizationId;
+    public String getIdOrganization() {
+        return idOrganization;
     }
 
     /**
      *
-     * @param organizationId MongoID of the organization to which the board belongs.
+     * @param idOrganization MongoID of the organization to which the board belongs.
      */
     @JsonSetter("idOrganization")
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+    public void setIdOrganization(String idOrganization) {
+        this.idOrganization = idOrganization;
     }
 
     /**
